@@ -51,30 +51,25 @@ function student_info($student_id){
     return $result;
 }
 
-function login($student_id, $student_password){
-    global $connect;
 
+function get_depts(){
+    global $connect;
+    $result = array();
+    if($query = mysqli_query($connect, "SELECT * FROM `department`")){
+        foreach($query as $key){
+            $result[] = $key;
+        }
+    }
+    return $result;
 }
 
-function register($p){
-    global $connect, $student_info;
-    $result = false;
-    //
-    if(isset($p['student_name'], $p['student_id'], $p['dept_id'],$p['session_id'],$p['current_semester'],$p['phone_number'],$p['password'],$p['user_type']) && ($student_info == false || (isset($student_info['user_type']) && $student_info['user_type'] == "ADMIN"))){
-        $p['student_id'] = addslashes($p['student_id']);
-        if((isset($student_info['user_type']) && $student_info['user_type'] == "ADMIN")){
-            $p['user_type'] = addslashes($p['user_type']);
-        }else{
-            $p['user_type'] = "STUDENT";
+function get_sessions(){
+    global $connect;
+    $result = array();
+    if($query = mysqli_query($connect, "SELECT * FROM `admission_sessions`")){
+        foreach($query as $key){
+            $result[] = $key;
         }
-        $p['password'] = hash_pass($p['password']);
-        if(!student_info($p['student_id'])){
-            if($query = @mysqli_query($connect, "INSERT INTO `students` (`id`,`student_name`, `dept_id`, `session_id`, `current_semester`, `account_creation_time`, `phone_number`, `password`, `status`, `user_type`) VALUES ('$p[student_id]','$p[student_name]',  '$p[dept_id]', '$p[session_id]', '$p[current_semester]', '0', '$p[phone_number]', '$p[password]', 'ACTIVE', '$p[user_type]')")){
-                $_SESSION['student_id'] = mysqli_insert_id($connect);
-                $result = $query;
-            }
-        }
-        
     }
     return $result;
 }
