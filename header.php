@@ -7,3 +7,18 @@
 </head>
 <body>
 
+<?php
+if(isset($nav_required) && $nav_required == true){
+    require_once("./navbar.php");
+    ?>
+    <main>
+        <section class="sidebar">
+            <?php 
+            require ("./sidebar_items.php");
+            ?>
+        </section>
+        <section class="content">
+    <?php
+}
+
+?>

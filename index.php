@@ -20,12 +20,9 @@ $p = array(
 // echoArray(register($p));
 
 if(!$student_info){
-    $student_session = 1;
-    
-
     header("Location:/login.php");
     exit();
 }else{
-    echo "Logged in";
-    echoArray($student_info);
+    header("Location:/notes.php");
+    exit();
 }
