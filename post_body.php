@@ -29,6 +29,18 @@ if(!isset($get_post_data['id'])){
             ?>
 
         </div>
+        <div>
+            <span>Department: <?php 
+                    foreach(get_depts() as $key){
+                        if($key['id'] == $get_post_data['dept_id']){
+                            echo strtoupper($key['dept_short_name']);
+                            break;
+                        }
+                    }
+                ?></span>
+                <span>Semester: <?php echo $get_post_data['semester']; ?></span>
+                <br>
+        </div>
         <div class="post_row">
             <a href="/note_full_screen.php?id=<?php echo $get_post_data['id']; ?>" class="post_time"><?php echo date("Y-m-d h:i:sA", $get_post_data['post_time']); ?></a>
             <span><?php

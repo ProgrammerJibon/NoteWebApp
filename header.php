@@ -12,7 +12,7 @@ if(isset($nav_required) && $nav_required == true){
     require_once("./navbar.php");
     ?>
     <main>
-        <section class="sidebar">
+        <section class="sidebar close">
             <?php 
             require ("./sidebar_items.php");
             ?>

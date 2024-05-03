@@ -59,6 +59,20 @@ input, textarea{
     margin: 0 16px;
     cursor: pointer;
 }
+.search_bar{
+    display: flex;
+}
+.search_bar input[type="search"]{
+    width: 250px;
+}
+.search_bar input[type="submit"]{
+    margin: 0;
+    width: max-content;
+    margin-left: 8px;
+}
+
+
+/*  */
 
 main {
     display: flex;

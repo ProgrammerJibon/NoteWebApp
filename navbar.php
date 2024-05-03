@@ -4,7 +4,7 @@
     </div>
     <form method="get" class="search_bar">
         <input type="search" name="search" value="<?php echo isset($_GET['search'])?$_GET['search']:"" ?>" placeholder="Search..." required>
-        <!-- <input type="submit" value="search"> -->
+        <input type="submit" value="search">
     </form>
     <div class="open_side_bar_icon">
         <img src="/hamburger.svg">
