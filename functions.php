@@ -73,3 +73,46 @@ function get_sessions(){
     }
     return $result;
 }
+
+function upload($tmp_file, $type = false){
+    if(!$tmp_file){
+        return false;
+    }
+    $mime_file_type = explode("/", mime_content_type($tmp_file));
+    $result = false;
+    if($type == false || $type == $mime_file_type[0]){
+        $file_path = "uploads/".date("Y/M/");
+        if (!file_exists($file_path)) {
+            mkdir($file_path, 0777, true);
+        }
+        $file_name = $file_path.$mime_file_type[0]."-".time()."-".rand().".".$mime_file_type[1];
+        if(move_uploaded_file($tmp_file, $file_name)){
+            $result = $file_name;
+        }
+    }
+    return $result;
+}
+
+function get_post_data($post_id){
+    global $connect;
+    $post_id = addslashes($post_id);
+    $result = false;
+    if($query = @mysqli_query($connect, "SELECT * FROM `notes_post` WHERE `id` = '$post_id' ORDER BY `post_time` DESC LIMIT 1")){
+        foreach($query as $key){
+            $key['files'] = array();
+            $key['owner'] = student_info($key['student_user_id']);
+            if($file_query = @mysqli_query($connect, "SELECT * FROM `post_files` WHERE `note_post_id` = '$post_id'")){
+                foreach ($file_query as $file_key) {
+                    $key['files'][] = $file_key;
+                }
+            }
+            $result = $key;
+        }
+    }
+    return $result;
+}
+
+
+
+
+

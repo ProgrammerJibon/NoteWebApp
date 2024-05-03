@@ -19,6 +19,11 @@ $p = array(
 );
 // echoArray(register($p));
 
+// echo add_salt("227", "for-call");
+// echo "\n";
+// echo rmv_salt("lWNraplnZZljbnBulGebbIPQrmtnlG9naXBjb2NwnWmVZWpx", "for-call");
+
+// exit;
 if(!$student_info){
     header("Location:/login.php");
     exit();

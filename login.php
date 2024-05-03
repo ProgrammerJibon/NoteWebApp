@@ -39,7 +39,7 @@ if(isset($_POST['login'], $_POST['student_id'], $_POST['pass'])){
     }
 }
 ?>
-<form method="post">
+<form method="post" class="post_form">
     <div>
         <h1>Login Page</h1>
     </div>
