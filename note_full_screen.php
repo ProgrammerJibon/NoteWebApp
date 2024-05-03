@@ -23,6 +23,11 @@ if (isset($_POST['delete_post'])) {
         header("Refresh: 0");
     exit;
 }
+if (isset($_POST['perm_del'])) {
+    if ($student_info['user_type'] == "ADMIN" && @mysqli_query($connect, "DELETE FROM `notes_post` WHERE `notes_post`.`id` = '$post_id'"))
+        header("Refresh: 0");
+        exit;
+}
 if (isset($_POST['active_post'])) {
     if (@mysqli_query($connect, "UPDATE `notes_post` SET `status` = 'ACTIVE' WHERE `notes_post`.`id` = '$post_id'"))
         header("Refresh: 0");

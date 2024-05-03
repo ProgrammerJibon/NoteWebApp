@@ -12,12 +12,15 @@ if(!isset($get_post_data['id'])){
                 <div class="st_id">(<?php echo $get_post_data['owner']['id']; ?>)</div>
             </div>
             <?php
-            if ($get_post_data['student_user_id'] == $student_info['id']) {
+            if ($get_post_data['student_user_id'] == $student_info['id'] || $student_info['user_type'] == "ADMIN") {
             ?>
                 <div class="owner_options">
+                    <?php if($get_post_data['student_user_id'] == $student_info['id']){ ?>
                     <button type="submit" name="edit_post" value="<?php echo $get_post_data['id']; ?>">Edit</button>
-                    <?php
-                    if ($get_post_data['status'] == "ACTIVE") {
+                    <?php }
+                    if ($student_info['user_type'] == "ADMIN") { ?>
+                        <button type="submit" name="perm_del" value="<?php echo $get_post_data['id']; ?>">Permanent Del</button>
+                    <?php }elseif ($get_post_data['status'] == "ACTIVE") {
                     ?><button type="submit" name="delete_post" value="<?php echo $get_post_data['id']; ?>">Delete</button><?php } elseif ($get_post_data['status'] == "DELETED") { ?>
                     <button type="submit" name="active_post" value="<?php echo $get_post_data['id']; ?>">Active</button>
                     <?php } elseif ($get_post_data['status'] == "DRAFT") { ?>
@@ -29,16 +32,16 @@ if(!isset($get_post_data['id'])){
             ?>
 
         </div>
-        <div>
-            <span>Department: <?php 
+        <div style="margin-bottom: 8px;">
+            <span>Department: <a href="/notes.php?dept_id=<?php echo $get_post_data['dept_id'];?>"><?php 
                     foreach(get_depts() as $key){
                         if($key['id'] == $get_post_data['dept_id']){
                             echo strtoupper($key['dept_short_name']);
                             break;
                         }
                     }
-                ?></span>
-                <span>Semester: <?php echo $get_post_data['semester']; ?></span>
+                ?></a></span>
+                <span>Semester: <a href="/notes.php?semester=<?php echo $get_post_data['semester']; ?>"><?php echo $get_post_data['semester']; ?></a></span>
                 <br>
         </div>
         <div class="post_row">

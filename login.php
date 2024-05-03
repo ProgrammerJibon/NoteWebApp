@@ -24,7 +24,9 @@ if(isset($_POST['login'], $_POST['student_id'], $_POST['pass'])){
         if($query = mysqli_query($connect, "SELECT * FROM `students` WHERE `id` = '$student_id' LIMIT 1")){
             if(mysqli_num_rows($query) > 0){
                 foreach($query as $key){
-                    if($key['password'] == $pass){
+                    if($key['status'] != "ACTIVE"){
+                        $login_error .= "Your account is $key[status]<br>";
+                    }elseif($key['password'] == $pass){
                         $_SESSION['student_id'] = $student_id;
                         header("Location:/");
                         exit();
