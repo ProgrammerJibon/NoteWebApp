@@ -94,17 +94,33 @@ function upload($tmp_file, $type = false){
 }
 
 function get_post_data($post_id){
-    global $connect;
+    global $connect, $student_info;
     $post_id = addslashes($post_id);
     $result = false;
-    if($query = @mysqli_query($connect, "SELECT * FROM `notes_post` WHERE `id` = '$post_id' ORDER BY `post_time` DESC LIMIT 1")){
+    $showIfActiveOrNot = "";
+    if($query = @mysqli_query($connect, "SELECT * FROM `notes_post` WHERE `id` = '$post_id'  AND (`status`='ACTIVE' OR  `student_user_id`='$student_info[id]' ) ORDER BY `post_time` DESC LIMIT 1")){
         foreach($query as $key){
             $key['files'] = array();
+            $key['liked'] = false;
+            $key['saved'] = false;
+            $key['likes'] = 0;
             $key['owner'] = student_info($key['student_user_id']);
             if($file_query = @mysqli_query($connect, "SELECT * FROM `post_files` WHERE `note_post_id` = '$post_id'")){
                 foreach ($file_query as $file_key) {
                     $key['files'][] = $file_key;
                 }
+            }
+            if($like_query = @mysqli_query($connect, "SELECT * FROM `post_likes` WHERE `student_user_id` LIKE '$student_info[id]' AND `note_post_id` LIKE '$post_id'"))
+            {
+                $key['liked'] = @mysqli_num_rows($like_query) > 0;
+            }
+            if($like_query = @mysqli_query($connect, "SELECT * FROM `post_likes` WHERE `note_post_id` LIKE '$post_id'"))
+            {
+                $key['likes'] = @mysqli_num_rows($like_query);
+            }
+            if($like_query = @mysqli_query($connect, "SELECT * FROM `saved_post` WHERE `student_user_id` LIKE '$student_info[id]' AND `note_post_id` LIKE '$post_id'"))
+            {
+                $key['saved'] = @mysqli_num_rows($like_query) > 0;
             }
             $result = $key;
         }

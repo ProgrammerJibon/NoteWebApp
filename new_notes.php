@@ -26,7 +26,7 @@ if(!$get_post_data){
 // echoArray($student_info);
 $nav_required = true;
 $post_error = "";
-if(isset($_POST['upload_file'], $_FILES['add_file']['tmp_name'], $_POST['file_caption'], $_POST['main_caption'], $_GET['edit_post_id'])){
+if(isset($_POST['upload_file'], $_FILES['add_file']['tmp_name'], $_POST['file_caption'], $_POST['main_caption'], $_GET['edit_post_id']) && $_FILES['add_file']['tmp_name'] != ""){
     $main_caption = addslashes(strip_tags($_POST['main_caption']));
     $file_caption = addslashes(strip_tags($_POST['file_caption']));
     $edit_post_id = addslashes(($_GET['edit_post_id']));

@@ -40,7 +40,7 @@ nav {
     justify-content: space-between;
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 2;
     background: white;
     box-shadow: 0px 5px 10px -5px gray;
 }
@@ -67,7 +67,16 @@ main {
     max-width: 100%;
 }
 
-input[type="text"], input[type="password"], input[type="search"] {
+select {
+    width: 100%;
+    border: 1px solid gray;
+    border-radius: 6px;
+    padding: 8px 16px;
+    color: #484848;
+    outline: none;
+}
+
+input[type="text"], input[type="password"], input[type="search"], input[type="tel"] {
     border: 1px solid gray;
     border-radius: 6px;
     padding: 8px 16px;
@@ -115,7 +124,10 @@ button {
     width: 250px;
     height: 100%;
     position: sticky;
-    top: 120px;
+    top: 70px;
+    padding-top: 40px;
+    left: 0;
+    min-width: 200px;
 }
 .side_bar_item{
     margin: 4px 8px;
@@ -135,6 +147,7 @@ button {
     width: calc(100vw - 250px);
     overflow: hidden;
     padding: 0px 64px;
+    min-width: 500px;
 }
 .file_upload_area {
     padding: 16px 8px;
@@ -203,6 +216,7 @@ button {
 .viewer_actions button{
     flex: 1;
     margin-right: 8px;
+    background: #393f6e;
 }
 .viewer_actions button:nth-last-child(1){
     margin-right: 0px;
@@ -215,4 +229,29 @@ button {
     font-family: sans-serif;
     font-weight: bold;
     font-size: 14px;
+}
+
+
+
+@media only screen and (max-width: 920px){
+    .search_bar{
+        display: none;
+    }
+    .sidebar.close{
+        left: -100%;
+    }
+    .sidebar{
+        width: 100%;
+        position: fixed;
+        background: white;
+        z-index: 1;
+    }
+}
+@media only screen and (min-width: 920px){
+    .search_bar{
+        padding-right: 16px;
+    }
+    .open_side_bar_icon{
+        display: none;
+    }
 }

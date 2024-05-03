@@ -66,17 +66,18 @@ if(isset($_POST['register'], $_POST['student_name'], $_POST['student_id'], $_POS
         
     }
 
-}else{
+}else if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST"){
+    echoArray($_SERVER);
     $login_error .= "Please use form<br>";
 }
 
-
+require_once"./header.php";
 
 
 ?>
 
 
-<form method="post">
+<form method="post" class="post_form">
     <div>
         <h1>Register Page</h1>
     </div>
@@ -151,6 +152,15 @@ if(isset($_POST['register'], $_POST['student_name'], $_POST['student_id'], $_POS
     </div>
     <div>
         <span>Already have an account yet?</span>
-        <a href="/login.php">Register</a>
+        <a href="/login.php">Login here</a>
     </div>
 </form>
+
+
+
+
+
+
+<?php
+require_once"./footer.php";
+?>

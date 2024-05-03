@@ -28,100 +28,32 @@ if (isset($_POST['active_post'])) {
         header("Refresh: 0");
     exit;
 }
+if (isset($_POST['like_post'])) {
+    if($get_post_data['liked'] && @mysqli_query($connect, "DELETE FROM `post_likes` WHERE `post_likes`.`student_user_id` = '$student_info[id]' AND `post_likes`.`note_post_id` = '$get_post_data[id]'")){
+        header("Refresh: 0");
+        exit;
+    }elseif (@mysqli_query($connect, "INSERT INTO `post_likes` (`student_user_id`, `note_post_id`, `liked_time`) VALUES ('$student_info[id]', '$get_post_data[id]', '$time')")) {
+        header("Refresh: 0");
+        exit;
+    }
+}
+if (isset($_POST['save_post'])) {
+    if($get_post_data['saved'] && @mysqli_query($connect, "DELETE FROM `saved_post` WHERE `saved_post`.`student_user_id` = '$student_info[id]' AND `saved_post`.`note_post_id` = '$get_post_data[id]'")){
+        header("Refresh: 0");
+        exit;
+    }elseif (@mysqli_query($connect, "INSERT INTO `saved_post` (`student_user_id`, `note_post_id`, `saved_time`) VALUES ('$student_info[id]', '$get_post_data[id]', '$time')")) {
+        header("Refresh: 0");
+        exit;
+    }
+}
 
 ?>
-<title>Notes</title>
-<form method="post" action="/note_full_screen.php?id=<?php echo $get_post_data['id']; ?>" class="post_form post_item">
-    <div class="post_header">
+<title><?php echo mb_substr($get_post_data['caption'], 0, 32); ?></title>
 
-        <div class="post_row">
-            <div class="st_name_id">
-                <div class="st_name"><?php echo $get_post_data['owner']['student_name']; ?></div>
-                <div class="st_id">(<?php echo $get_post_data['owner']['id']; ?>)</div>
-            </div>
-            <?php
-            if ($get_post_data['student_user_id'] == $student_info['id']) {
-            ?>
-                <div class="owner_options">
-                    <button type="submit" name="edit_post" value="<?php echo $get_post_data['id']; ?>">Edit</button>
-                    <?php
-                    if ($get_post_data['status'] == "ACTIVE") {
-                    ?><button type="submit" name="delete_post" value="<?php echo $get_post_data['id']; ?>">Delete</button><?php
-                                                                                                                        } elseif ($get_post_data['status'] == "DELETED") {
-                                                                                                                            ?><button type="submit" name="active_post" value="<?php echo $get_post_data['id']; ?>">Active</button><?php
-                                                                                                                                                                                                                                            } elseif ($get_post_data['status'] == "DRAFT") {
-                                                                                                                                                                                                                                                ?><button type="submit" name="active_post" value="<?php echo $get_post_data['id']; ?>">Active</button><?php
-                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                ?>
-                </div>
-            <?php
-            }
-            ?>
+<?php 
+require_once "./post_body.php";
 
-        </div>
-        <div class="post_row">
-            <span class="post_time"><?php echo date("Y-m-d h:i:sA", $get_post_data['post_time']); ?></span>
-            <span><?php
-                    if ($get_post_data['status'] == "DELETED") {
-                        echo "<i style='color: red;'>This post is in trash</i>";
-                    } elseif ($get_post_data['status'] == "DRAFT") {
-                        echo "<i style='color: red;'>This post is in edit mode</i>";
-                    }
-                    ?></span>
-        </div>
-        <hr>
-
-
-        <div class="post_row">
-            <span class="caption_text"><?php echo $get_post_data['caption']; ?></span>
-        </div>
-
-
-        <div class="image_files">
-            <?php
-            foreach ($get_post_data['files'] as $file) {
-                if ($file['status'] == "ACTIVE") {
-                    if (str_starts_with($file['file_type'], "image")) { ?>
-                        <a class="image" href="/<?php echo $file['file_path']; ?>" target="_blank">
-                            <div class="thumb">
-                                <img src="/<?php echo $file['file_path']; ?>">
-                            </div>
-
-                            <div class="alt_text">
-                                <span><?php echo $file['alt_text']; ?></span>
-                            </div>
-                        </a>
-                    <?php
-                    }
-                }
-            }
-            foreach ($get_post_data['files'] as $file) {
-                if ($file['status'] == "ACTIVE") {
-                    if (!str_starts_with($file['file_type'], "image")) {
-                    ?>
-                        <a class="file" href="/<?php echo $file['file_path']; ?>" target="_blank">
-                            <hr>
-                            <div class="alt_text">
-                                <span><?php echo $file['alt_text']; ?></span>
-                            </div>
-                            <div class="file_name">
-                                <span><?php echo $file['file_name']; ?></span>
-                            </div>
-                        </a><?php
-                    }
-                }
-            }
-            ?>
-        </div>
-        <hr>
-
-        <div class="viewer_actions post_row">
-            <button type="submit" value="<?php echo $get_post_data['id']; ?>" name="like_post">LIKE</button>
-            <button type="submit" value="<?php echo $get_post_data['id']; ?>" name="comment_post">Comment</button>
-            <button type="submit" value="<?php echo $get_post_data['id']; ?>" name="save_post">Save</button>
-        </div>
-    </div>
-</form>
+?>
 
 
 <?php
