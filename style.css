@@ -255,3 +255,47 @@ button {
         display: none;
     }
 }
+
+
+
+
+
+/* student list  */
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin: 64px auto;
+}
+table tr{
+    border: 1px solid gray;
+}
+table thead tr {
+    background: #002b5c !important;
+    color: white !important;
+}
+table thead tr th{
+    padding: 8px;
+}
+table tr:nth-child(odd) {
+    background: #0e5c00;
+    color: white;
+}
+table tr:nth-child(even), table thead tr {
+    background: #00438f;
+    color: white ;
+}
+table tr td{
+    padding: 16px 8px;
+    text-align: center;
+}
+
+/* options page */
+.site_options table{
+    margin-top: 0;
+}
+.site_options form.post_form {
+    margin: 0;
+    background: transparent;
+    padding: 0;
+}

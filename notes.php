@@ -35,7 +35,7 @@ if(isset($_GET['show_saved'])){
         {
             foreach ($query as $key) {
                 $get_post_data = get_post_data($key['id']);
-                require "./post_body.php";
+                require ("./post_body.php");
             }
         }else
         {

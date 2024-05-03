@@ -108,8 +108,14 @@ require_once"./header.php";
         <label>
             <span>Student Semester</span>
             <select name="current_semester">
+                <option value="3" <?php if($student_semester == 1) echo "selected" ?> >1st</option>
+                <option value="3" <?php if($student_semester == 2) echo "selected" ?> >2nd</option>
                 <option value="3" <?php if($student_semester == 3) echo "selected" ?> >3rd</option>
                 <option value="4" <?php if($student_semester == 4) echo "selected" ?> >4th</option>
+                <option value="4" <?php if($student_semester == 5) echo "selected" ?> >5th</option>
+                <option value="4" <?php if($student_semester == 6) echo "selected" ?> >6th</option>
+                <option value="4" <?php if($student_semester == 7) echo "selected" ?> >7th</option>
+                <option value="4" <?php if($student_semester == 8) echo "selected" ?> >8th</option>
             </select>
         </label>
     </div>

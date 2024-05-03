@@ -10,9 +10,19 @@
 <div class="side_bar_item">
     <a href="/notes.php?user=<?php echo $student_info['id'];?>">My notes</a>
 </div>
-<!-- <div class="side_bar_item">
-    <a href="/settings.php">Settings</a>
-</div> -->
+
+<?php
+if(isset($student_info['user_type']) && $student_info['user_type'] == "ADMIN"){
+    ?>
+<div class="side_bar_item">
+    <a href="/students.php">List of Students</a>
+</div>
+<div class="side_bar_item">
+    <a href="/options.php">Options</a>
+</div>
+    <?php
+}
+?>
 <div class="side_bar_item">
     <a href="/logout.php" style="color: red;">Logout</a>
 </div>

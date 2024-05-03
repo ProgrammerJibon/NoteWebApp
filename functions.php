@@ -38,6 +38,16 @@ function hash_pass($pass){
     return md5(sha1($pass));
 }
 
+function is_empty(...$arguments)
+{
+    foreach($arguments as $arg)
+        if(($arg) == "")
+            continue;
+        else
+            return false;
+    return true;
+}
+
 function student_info($student_id){
     global $connect;
     $result = false;
